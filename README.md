@@ -10,7 +10,13 @@ This is a project is written as a project on the side of my studies and are only
 2. Structure header files in own folder.
 3. TVL1 deconvolution.
 4. Improve deconvolution framework.
-5. Start on segmentation algorithms.
+
+### Long term goals:
+1. Segmentation algorithms
+2. Textures using wavelets
+3. 3D-Implementations of some algorithms
+4. Image inpainting
+5. Markov model techniques (Not variational or PDE based, but interesting nonetheless)
 
 ### Required python packages:
 I reccomend using an installation of the great Anaconda Python bundle, as that will have all required Python packages installed. If not, these are the packages this toolbox requires:
