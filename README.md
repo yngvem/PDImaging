@@ -21,7 +21,7 @@ I reccomend using an installation of the great Anaconda Python bundle, as that w
 4. Setuptools (I plan on making it possible to install with distutils in the future)
 
 ## About me
-I am a graduate student on my first year of a Masters degree in image processing and computational biology at the Norwegian University of Life Sciences, with goals of writing a PhD within one of those fields. 
+I am a graduate student on my first year of a Masters degree in image processing and computational biology at the Norwegian University of Life Sciences. I have previously completed a Bachelor's degree within physics and applied mathematics at the same university, with one year on exchange at the University of Manchester. I wrote my undergraduate project in Manchester, and it is meant as an introduction to the mathematical background for CT reconstruction, as well as a comparison of different algorithms. The MATLAB toolkit I made, as well as the thesis can be found at https://github.com/yngvem/CT_reconstruction 
 
 Feel free to contact me at yngve.m.moe@gmail.com.
 
