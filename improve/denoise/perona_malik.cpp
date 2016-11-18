@@ -4,7 +4,7 @@
 {
     "distutils": {
         "depends": [
-            "perona_malik.h"
+            "..\\..\\header_files\\perona_malik.h"
         ], 
         "extra_compile_args": [
             "/openmp"
@@ -14,7 +14,7 @@
         ], 
         "language": "c++"
     }, 
-    "module_name": "perona_malik_denoise"
+    "module_name": "perona_malik"
 }
 END: Cython Metadata */
 
@@ -300,7 +300,7 @@ static CYTHON_INLINE float __PYX_NAN() {
 #include "stdlib.h"
 #include "numpy/arrayobject.h"
 #include "numpy/ufuncobject.h"
-#include "perona_malik.h"
+#include "../../header_files/perona_malik.h"
 #ifdef _OPENMP
 #include <omp.h>
 #endif /* _OPENMP */

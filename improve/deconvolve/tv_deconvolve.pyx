@@ -28,7 +28,7 @@ __email__ = "yngve.m.moe@gmail.com"
 import numpy as np
 cimport numpy as np
 
-cdef extern from "tv_fista.h":
+cdef extern from "../../header_files/tv_fista.h":
     void TV_FISTA(double* image, double* raw, double gamma,
                   double min_intensity, double max_intensity, int max_it,
                   double eps, int y, int x)
