@@ -14,6 +14,7 @@ This is a project is written as a project on the side of my studies and are only
 
 ### Required python packages:
 I reccomend using an installation of the great Anaconda Python bundle, as that will have all required Python packages installed. If not, these are the packages this toolbox requires:
+
 1. Numpy
 2. Cython
 3. Scikit-Image
