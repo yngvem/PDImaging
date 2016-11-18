@@ -1,6 +1,6 @@
 # PDImaging
 ## A Python toolkit for variational and PDE based image processing
-PDE based image processing is an important part of image processing, there are, however, no proper Python toolboxes for efficiently solving such problems. This package is an attempt to fill that hole and uses a combination of Cython and C++ to speed things up.
+PDE based image processing is an important part of image processing, there are, however, no proper Python toolboxes for efficiently solving such problems. This toolbox is an attempt to fill that hole and uses a combination of Cython and C++ to speed things up. One big advantage of this toolbox is that all functions have references to where the respective algorithms were first published, as well as what source I've used for the algorithm to improve the ease at which scientists use this toolbox.
 
 ## Current project state
 This is a project is written as a project on the side of my studies and are only a couple of weeks old, and therefore not anywhere near any state of completion. There only functions currently implemented are for improving image quality, denoising using Perona Malik iterations and ROF/TV-L2 denoising as well as TV-L2 regularised deconvolution.
