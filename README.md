@@ -24,7 +24,8 @@ I reccomend using an installation of the great Anaconda Python bundle, as that w
 1. Numpy
 2. Cython
 3. Scikit-Image
-4. Setuptools (I plan on making it possible to install with distutils in the future)
+4. Scipy (for convolution)
+5. Setuptools (I plan on making it possible to install with distutils in the future)
 
 ## About me
 I am a graduate student on my first year of a Masters degree in image processing and computational biology at the Norwegian University of Life Sciences. I have previously completed a Bachelor's degree within physics and applied mathematics at the same university, with one year spent at the University of Manchester, where I wrote my undergraduate project. My project is meant as an introduction to the mathematical background of tomographic reconstruction techniques, including numerics as well as a comparison of different algorithms. The MATLAB toolkit I made, as well as the thesis can be found at https://github.com/yngvem/CT_reconstruction 
