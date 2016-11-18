@@ -31,5 +31,6 @@ I am a graduate student on my first year of a Masters degree in image processing
 
 I spent, after completing my undergraduate project, one summer as a research intern at the CT lab at the University of Manchester, implementing the Katsevich reconstruction algorithm for 3D-CT. The result of which was presented as a poster-paper at the ToScA conference in Bath the same year. The poster can be found here: https://doi.org/10.5281/zenodo.61409
 
+## Contact:
 Feel free to contact me, either about this project, or for general questions about tomography at yngve.m.moe@gmail.com.
 
