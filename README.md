@@ -7,9 +7,8 @@ This is a project is written as a project on the side of my studies and are only
 
 ### Immediate todo list:
 1. Better understanding of distutils/setuptools, so that I won't need more than one setupfile, and for setuptools to be redundant.
-2. Structure header files in own folder.
-3. TVL1 deconvolution.
-4. Improve deconvolution framework.
+2. TVL1 deconvolution.
+3. Improve deconvolution framework.
 
 ### Long term goals:
 1. Segmentation algorithms
