@@ -13,5 +13,7 @@ This is a project is written as a project on the side of my studies and are only
 5. Start on segmentation algorithms.
 
 ## About me
-I am a graduate student, studying biophysics and image processing at the Norwegian University of Life Sciences, with goals of writing a PhD within one of those fields. I can be reached by e-mail at yngve.m.moe@gmail.com.
+I am a graduate student on my first year of a Masters degree in image processing and computational biology at the Norwegian University of Life Sciences, with goals of writing a PhD within one of those fields. 
+
+Feel free to contact me at yngve.m.moe@gmail.com.
 
