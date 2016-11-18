@@ -3,7 +3,7 @@
 #include <cmath>
 #include <omp.h>
 #include <exception>
-#include "..\..\Image.h"
+#include "..\Image.h"
 
 using namespace std;
 //Writen by Yngve Mardal Moe
@@ -13,7 +13,7 @@ using namespace std;
 //scheme derived in [1] (ref. from [2]) as described in [2]. 
 //
 //[1] Y. E. Nesterov, "A method for solving the convex programming problem with convergence rate O(1/k^2)"
-//	  Dokl. Akad. Nauk SSSR, 269 (1983), pp. 543–547(in Russian).
+//	  Dokl. Akad. Nauk SSSR, 269 (1983), pp. 543â€“547(in Russian).
 //[2] Beck, A and Teboulle, M. "A fast iterative shrinkage-thresholding algorithm for linear inverse problems." 
 //	  SIAM journal on imaging sciences 2.1 (2009).
 
@@ -30,18 +30,18 @@ double inline lorenz(double x, double edge_level)
 {
 	//Computes weights for Perona-Malik iterations with the Lorenzian error norm
 	edge_level = edge_level / sqrt(2.0);
-	return (2 * x) / (2 + ((x*x) / (edge_level*edge_level)) );
+	return (2 * x) / (2 + ((x*x) / (edge_level*edge_level)));
 }
 
 double inline isotropic(double x)
 {
-//Computes weights using isotropic diffusion/2-norm penality function
+	//Computes weights using isotropic diffusion/2-norm penality function
 	return x;
 }
 
 double inline weight_function(double x, double edge_level, int method)
 {
-	switch(method)
+	switch (method)
 	{
 	case 1:
 		return lorenz(x, edge_level);
@@ -68,7 +68,7 @@ void diff_2d_x(double* diff_x, double* image, int y, int x)
 	{
 		for (j = 0; j < x - 1; j++)
 		{
-			diff_x[i*(x-1) + j] = image[i*x + j + 1] - image[i*x + j];
+			diff_x[i*(x - 1) + j] = image[i*x + j + 1] - image[i*x + j];
 		}
 	}
 }
@@ -90,32 +90,32 @@ void norm_image_subtract_const(double* image, double* diff_x, double* diff_y, do
 {
 	//Computes sqrt((x-c)^2 + (y-c)^2) for all values in the images x=:diff_x: and y=:diff_y: and stores it in the variable :image:.
 
-	for(int i = 0; i < y-1; ++i)
+	for (int i = 0; i < y - 1; ++i)
 	{
-		for(int j = 0; j < x-1; ++j)
+		for (int j = 0; j < x - 1; ++j)
 		{
-			image[i*(x-1) + j] = sqrt((diff_x[i*(x-1) + j] - c) * (diff_x[i*(x-1) + j] - c) + (diff_y[i*x + j] - c) * (diff_y[i*x + j] - c));
+			image[i*(x - 1) + j] = sqrt((diff_x[i*(x - 1) + j] - c) * (diff_x[i*(x - 1) + j] - c) + (diff_y[i*x + j] - c) * (diff_y[i*x + j] - c));
 		}
 	}
 }
 
 double auto_edge(double* image, int y, int x)
 {
-	double* diff_x = new double[y*(x-1)]();
-	double* diff_y = new double[(y-1)*x]();
-	double* diff_median = new double[(y-1)*(x-1)]();
+	double* diff_x = new double[y*(x - 1)]();
+	double* diff_y = new double[(y - 1)*x]();
+	double* diff_median = new double[(y - 1)*(x - 1)]();
 	diff_2d_x(diff_x, image, y, x);
 	diff_2d_y(diff_y, image, y, x);
 
 	norm_image_subtract_const(diff_median, diff_x, diff_y, 0, y, x);
 
-	double med = median(diff_median, y-1, x-1);
+	double med = median(diff_median, y - 1, x - 1);
 	norm_image_subtract_const(diff_median, diff_x, diff_y, med, y, x);
-	med = 1.4826*median(diff_median, y-1, x-1);
+	med = median(diff_median, y - 1, x - 1);
 	delete[] diff_x;
 	delete[] diff_y;
 	delete[] diff_median;
-	
+
 	return med;
 }
 
@@ -128,87 +128,87 @@ void gradient_step(double* current_iteration, double* previous_iteration, double
 	i = 0;
 	j = 0;
 	current_iteration[i*x + j] = previous_iteration[i*x + j]
-							   + (step_length / 2)*(weight_function(previous_iteration[i*x + j + 1] - previous_iteration[i*x + j], edge_level, method)
-													+ weight_function(previous_iteration[(i + 1)*x + j] - previous_iteration[i*x + j], edge_level, method));
-	
+		+ (step_length / 2)*(weight_function(previous_iteration[i*x + j + 1] - previous_iteration[i*x + j], edge_level, method)
+			+ weight_function(previous_iteration[(i + 1)*x + j] - previous_iteration[i*x + j], edge_level, method));
+
 
 	//Lower left pixel
 	i = y - 1;
 	j = 0;
 	current_iteration[i*x + j] = previous_iteration[i*x + j]
-							   + (step_length / 2)*(weight_function(previous_iteration[i*x + j + 1] - previous_iteration[i*x + j], edge_level, method)
-													+ weight_function(previous_iteration[(i - 1)*x + j] - previous_iteration[i*x + j], edge_level, method));
+		+ (step_length / 2)*(weight_function(previous_iteration[i*x + j + 1] - previous_iteration[i*x + j], edge_level, method)
+			+ weight_function(previous_iteration[(i - 1)*x + j] - previous_iteration[i*x + j], edge_level, method));
 
 	//Top right pixel
 	i = 0;
 	j = x - 1;
 	current_iteration[i*x + j] = previous_iteration[i*x + j]
-							   + (step_length / 2)*(weight_function(previous_iteration[i*x + j - 1] - previous_iteration[i*x + j], edge_level, method)
-													+ weight_function(previous_iteration[(i + 1)*x + j] - previous_iteration[i*x + j], edge_level, method));
-	
+		+ (step_length / 2)*(weight_function(previous_iteration[i*x + j - 1] - previous_iteration[i*x + j], edge_level, method)
+			+ weight_function(previous_iteration[(i + 1)*x + j] - previous_iteration[i*x + j], edge_level, method));
+
 	//Bottom right pixel
 	i = y - 1;
 	j = x - 1;
 	current_iteration[i*x + j] = previous_iteration[i*x + j]
-							   + (step_length / 2)*(weight_function(previous_iteration[i*x + j - 1] - previous_iteration[i*x + j], edge_level, method)
-													+ weight_function(previous_iteration[(i - 1)*x + j] - previous_iteration[i*x + j], edge_level, method));
-											 
+		+ (step_length / 2)*(weight_function(previous_iteration[i*x + j - 1] - previous_iteration[i*x + j], edge_level, method)
+			+ weight_function(previous_iteration[(i - 1)*x + j] - previous_iteration[i*x + j], edge_level, method));
+
 	//Top row
 	i = 0;
-	for (j = 1; j < x-1; ++j)
+	for (j = 1; j < x - 1; ++j)
 	{
 		current_iteration[i*x + j] = previous_iteration[i*x + j]
-								   + (step_length / 3)*(weight_function(previous_iteration[i*x + j + 1] - previous_iteration[i*x + j], edge_level, method)
-														+ weight_function(previous_iteration[i*x + j - 1] - previous_iteration[i*x + j], edge_level, method)
-														+ weight_function(previous_iteration[(i + 1)*x + j] - previous_iteration[i*x + j], edge_level, method));
+			+ (step_length / 3)*(weight_function(previous_iteration[i*x + j + 1] - previous_iteration[i*x + j], edge_level, method)
+				+ weight_function(previous_iteration[i*x + j - 1] - previous_iteration[i*x + j], edge_level, method)
+				+ weight_function(previous_iteration[(i + 1)*x + j] - previous_iteration[i*x + j], edge_level, method));
 	}
-	
+
 	//Bottom row
 	i = y - 1;
-	for (j = 1; j < x-1; ++j)
+	for (j = 1; j < x - 1; ++j)
 	{
 		current_iteration[i*x + j] = previous_iteration[i*x + j]
-								   + (step_length / 3)*(weight_function(previous_iteration[i*x + j + 1] - previous_iteration[i*x + j], edge_level, method)
-														+ weight_function(previous_iteration[i*x + j - 1] - previous_iteration[i*x + j], edge_level, method)
-														+ weight_function(previous_iteration[(i - 1)*x + j] - previous_iteration[i*x + j], edge_level, method));
+			+ (step_length / 3)*(weight_function(previous_iteration[i*x + j + 1] - previous_iteration[i*x + j], edge_level, method)
+				+ weight_function(previous_iteration[i*x + j - 1] - previous_iteration[i*x + j], edge_level, method)
+				+ weight_function(previous_iteration[(i - 1)*x + j] - previous_iteration[i*x + j], edge_level, method));
 	}
 
 	//Left row
 	j = 0;
-	for (i = 1; i < y-1; ++i)
+	for (i = 1; i < y - 1; ++i)
 	{
 		current_iteration[i*x + j] = previous_iteration[i*x + j]
-								   + (step_length / 3)*(weight_function(previous_iteration[i*x + j + 1] - previous_iteration[i*x + j], edge_level, method)
-														+ weight_function(previous_iteration[(i + 1)*x + j] - previous_iteration[i*x + j], edge_level, method)
-														+ weight_function(previous_iteration[(i - 1)*x + j] - previous_iteration[i*x + j], edge_level, method));
+			+ (step_length / 3)*(weight_function(previous_iteration[i*x + j + 1] - previous_iteration[i*x + j], edge_level, method)
+				+ weight_function(previous_iteration[(i + 1)*x + j] - previous_iteration[i*x + j], edge_level, method)
+				+ weight_function(previous_iteration[(i - 1)*x + j] - previous_iteration[i*x + j], edge_level, method));
 	}
 
 	//Right row
-	j = x-1;
-	for (i = 1; i < y-1; ++i)
+	j = x - 1;
+	for (i = 1; i < y - 1; ++i)
 	{
 		current_iteration[i*x + j] = previous_iteration[i*x + j]
-								   + (step_length / 3)*(weight_function(previous_iteration[i*x + j - 1] - previous_iteration[i*x + j], edge_level, method)
-														 + weight_function(previous_iteration[(i + 1)*x + j] - previous_iteration[i*x + j], edge_level, method)
-														 + weight_function(previous_iteration[(i - 1)*x + j] - previous_iteration[i*x + j], edge_level, method));
+			+ (step_length / 3)*(weight_function(previous_iteration[i*x + j - 1] - previous_iteration[i*x + j], edge_level, method)
+				+ weight_function(previous_iteration[(i + 1)*x + j] - previous_iteration[i*x + j], edge_level, method)
+				+ weight_function(previous_iteration[(i - 1)*x + j] - previous_iteration[i*x + j], edge_level, method));
 	}
-	
+
 	//Non-border pixels
 
-	for (i = 1; i < y-1; ++i)
+	for (i = 1; i < y - 1; ++i)
 	{
-		for(j = 1; j < x-1; j++)
-		current_iteration[i*x + j] = previous_iteration[i*x + j]
-								   + (step_length / 4)*(weight_function(previous_iteration[i*x + j + 1] - previous_iteration[i*x + j], edge_level, method)
-														+ weight_function(previous_iteration[i*x + j - 1] - previous_iteration[i*x + j], edge_level, method)
-														+ weight_function(previous_iteration[(i + 1)*x + j] - previous_iteration[i*x + j], edge_level, method)
-														+ weight_function(previous_iteration[(i - 1)*x + j] - previous_iteration[i*x + j], edge_level, method));
+		for (j = 1; j < x - 1; j++)
+			current_iteration[i*x + j] = previous_iteration[i*x + j]
+			+ (step_length / 4)*(weight_function(previous_iteration[i*x + j + 1] - previous_iteration[i*x + j], edge_level, method)
+				+ weight_function(previous_iteration[i*x + j - 1] - previous_iteration[i*x + j], edge_level, method)
+				+ weight_function(previous_iteration[(i + 1)*x + j] - previous_iteration[i*x + j], edge_level, method)
+				+ weight_function(previous_iteration[(i - 1)*x + j] - previous_iteration[i*x + j], edge_level, method));
 	}
 }
 
 void ext_perona_malik(double* image, double* raw, double edge_level, double step_length, int method, int max_it, int y, int x)
 {
-	if(edge_level <= 0)
+	if (edge_level <= 0)
 	{
 		edge_level = auto_edge(raw, y, x);
 	}
@@ -216,7 +216,7 @@ void ext_perona_malik(double* image, double* raw, double edge_level, double step
 	double* previous_iteration = new double[y*x]();
 	copy_image(image, raw, y, x);
 
-	for(int it = 0; it < max_it; ++it)
+	for (int it = 0; it < max_it; ++it)
 	{
 		copy_image(previous_iteration, image, y, x);
 		gradient_step(image, previous_iteration, edge_level, step_length, method, y, x);
@@ -253,5 +253,5 @@ void ext_fast_perona_malik(double* image, double* raw, double edge_level, double
 	}
 	delete[] momentum;
 	delete[] previous_iteration;
-	
+
 }

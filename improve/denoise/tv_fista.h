@@ -2,7 +2,7 @@
 #include <iostream>
 #include <cmath>
 #include <omp.h>
-#include "..\..\Image.h"
+#include "..\Image.h"
 //Written by Yngve Mardal Moe
 //
 //Functions used for TV denoising as part of the PDImage python package

@@ -53,15 +53,13 @@ cdef c_perona_malik(np.ndarray[double, ndim=2, mode='c'] image,
 
 
 # Python function for the Perona-Malik denoising algorithm
-cpdef perona_malik(raw, step_length = 0.5, method='lorenz',
-                        edge_level = 'auto', it = 20):
+cpdef perona_malik(raw,  method='lorenz', edge_level = 'auto',
+                   step_length = 0.5, it = 20):
     y, x = np.shape(raw)
     image = np.zeros(np.shape(raw))
 
     if method == 'tukey':
         method = 2
-    elif method == 'huber':
-        method = 3
     else:
         method = 1
     if edge_level == 'auto':
