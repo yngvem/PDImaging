@@ -10,12 +10,13 @@ This is a project is written as a project on the side of my studies and are only
 2. TVL1 deconvolution.
 3. Improve deconvolution framework.
 
-### Long term goals:
-1. Segmentation algorithms
-2. Textures using wavelets
-3. 3D-Implementations of some algorithms
-4. Image inpainting
-5. Markov model techniques (Not variational or PDE based, but interesting nonetheless)
+### Long term todo list:
+1. Change C++ code to use templates so image bitrate is conserved
+2. Segmentation algorithms
+3. Textures using wavelets
+4. 3D-Implementations of some algorithms
+5. Image inpainting
+6. Markov model techniques (Not variational or PDE based, but interesting nonetheless)
 
 ### Required python packages:
 I reccomend using an installation of the great Anaconda Python bundle, as that will have all required Python packages installed. If not, these are the packages this toolbox requires:
@@ -26,9 +27,7 @@ I reccomend using an installation of the great Anaconda Python bundle, as that w
 4. Setuptools (I plan on making it possible to install with distutils in the future)
 
 ## About me
-I am a graduate student on my first year of a Masters degree in image processing and computational biology at the Norwegian University of Life Sciences. I have previously completed a Bachelor's degree within physics and applied mathematics at the same university, with one year spent at the University of Manchester, where I wrote my undergraduate project. My project is meant as an introduction to the mathematical background for CT reconstruction, as well as a comparison of different algorithms. The MATLAB toolkit I made, as well as the thesis can be found at https://github.com/yngvem/CT_reconstruction 
-
-I spent, after completing my undergraduate project, one summer as a research intern at the CT lab at the University of Manchester, implementing the Katsevich reconstruction algorithm for 3D-CT. The result of which was presented as a poster-paper at the ToScA conference in Bath the same year. The poster can be found here: https://doi.org/10.5281/zenodo.61409
+I am a graduate student on my first year of a Masters degree in image processing and computational biology at the Norwegian University of Life Sciences. I have previously completed a Bachelor's degree within physics and applied mathematics at the same university, with one year spent at the University of Manchester, where I wrote my undergraduate project. My project is meant as an introduction to the mathematical background of tomographic reconstruction techniques, including numerics as well as a comparison of different algorithms. The MATLAB toolkit I made, as well as the thesis can be found at https://github.com/yngvem/CT_reconstruction 
 
 ## Contact:
 Feel free to contact me, either about this project, or for general questions about tomography at yngve.m.moe@gmail.com.

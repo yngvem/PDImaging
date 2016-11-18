@@ -28,9 +28,10 @@ __email__ = "yngve.m.moe@gmail.com"
 import numpy as np
 cimport numpy as np
 
+
 cdef extern from "../../header_files/tv_fista.h":
     void TV_FISTA(double* image, double* raw, double gamma,
-                  double min_intensity, double max_intensity, int max_it,
+                  double min_value, double max_value, int max_it,
                   double eps, int y, int x)
     double TV_deconvolve_problem(double* image, double*decon_image, double*raw,
                                  double gamma, int y, int x)
@@ -45,10 +46,10 @@ cdef double c_TV_deconvolve_problem(np.ndarray[double, ndim=2, mode='c'] image,
 
 cdef TV_decon_problem(decon_im, raw, gamma, filter):
     """Evaluates the TV deconvolution problem function
-    :decon_im: Deconvoluted image
-    :raw: (Noisy) image to deconvolve
-    :gamma: Regularization constant/noise level
-    :filter: Function performing the convolution filter we want to remove
+    :param decon_im: Deconvoluted image
+    :param raw: (Noisy) image to deconvolve
+    :param gamma: Regularization constant/noise level
+    :param filter: Function performing the convolution filter we want to remove
     """
     image = filter(decon_im)
     y, x = np.shape(image)
@@ -57,50 +58,57 @@ cdef TV_decon_problem(decon_im, raw, gamma, filter):
 
 cdef void c_tv_fista(np.ndarray[double, ndim=2, mode='c'] image,
                   np.ndarray[double, ndim=2, mode='c'] raw,
-                  double gamma, double min_intensity, double max_intensity,
+                  double gamma, double min_value, double max_value,
                   int it, double eps):
     y, x = np.shape(image)
-    TV_FISTA(<double *> image.data, <double *> raw.data, gamma, min_intensity,
-         max_intensity, it, eps, y, x)
+    TV_FISTA(<double *> image.data, <double *> raw.data, gamma, min_value,
+         max_value, it, eps, y, x)
 
 
 
 cdef tv_fista(raw, gamma, it = 100, eps=1e-4,
-             min_intensity = 0,  max_intensity = 1):
+             min_value = 0,  max_value = 1):
     """Performs TV-denoising using the ROF model [1] with the FISTA method as as
     described in [3].
-    :raw: Image to denoise.
-    :gamma: Regularization constant/noise level.
-    :it: Maximum number of iterations.
-    :eps: Convergence level
-    :min_intensity: Minimum image value
-    :max_intensity: Maximum image value
+    :param raw: Image to denoise.
+    :param gamma: Regularization constant/noise level.
+    :param it: Maximum number of iterations.
+    :param eps: Convergence level
+    :param min_value: Minimum image value
+    :param max_value: Maximum image value
     """
     image = np.zeros(np.shape(raw))
-    c_tv_fista(image, raw, gamma, min_intensity, max_intensity, it, eps)
+    c_tv_fista(image, raw, gamma, min_value, max_value, it, eps)
     return image
 
 
-cpdef convolve_fista(raw, filter, adjoint_filter, gamma, it=50,
-                     intermediate_it=30, lipschitz=1.3, eps=1e-4,
-                     intermediate_eps=1e-4, min_intensity=0, max_intensity=1):
+cpdef deconvolve_fista(raw, filter, adjoint_filter, gamma, it=50,
+                       intermediate_it=30, lipschitz=1.3, eps=1e-4,
+                       intermediate_eps=1e-4, min_value=0, max_value=1):
+
     """Performs TV-deconvolution using the ROF model [1] using the FISTA
     method as described in [3] and a restart scheme as described in [4].
-    :raw: Image do deconvolve
-    :filter: Convolution filter to remove, F()
-    :adjoint_filter: Adjoint operator/matched filter of :filter:
-                    (convolution using the same filter as :filter:,
-                    but  rotated 180*), F'()
-    :gamma: Regularization constant - noise level
-    :it: Number of FISTA iterations
-    :intermediate_it: Number of FISTA-denoise iterations per iteration
-    :lipschitz: Maximum bound for the Lipschitz constant of the:
-                F'*F()
-                Operator, where * is the composition operator
-    :eps: Convergence limit for the FISTA iterations
-    :intermediate_eps: Convergence limit for the denoise iterations
-    :min_intensity: The minimum image value
-    :max_intensity: The maximum image value
+    :param raw: Image do deconvolve
+    :param filter: Function, takes image as input and returns the
+    image transformed by the convolution operator we want to invert
+    remove, denoted F
+    :param adjoint_filter: Same as filter, but with the adjoint convolution
+                           operator instead (convolution using the same point
+                           spread function as :filter: only rotated 180*),
+                           denoted F'
+    :param gamma: Regularization constant - noise level
+    :param it: Number of FISTA iterations
+    :param intermediate_it: Number of FISTA-denoise iterations per iteration
+    :param lipschitz: Maximum bound for the Lipschitz constant of the:
+                      [F'*F]
+                      Operator, where * denotes composition.
+                      This can be found as the sum of all the values in the
+                      point spread function corresponding to F'*F (equals 1
+                      for most blurring operators).
+    :param eps: Convergence limit for the FISTA iterations
+    :param intermediate_eps: Convergence limit for the denoise iterations
+    :param min_value: The minimum image value
+    :param max_value: The maximum image value
     """
     # Initialize
     cdef np.ndarray[double, ndim=2, mode='c'] image = np.zeros(np.shape(raw))
@@ -120,7 +128,7 @@ cpdef convolve_fista(raw, filter, adjoint_filter, gamma, it=50,
         image = tv_fista(
             momentum - (2/lipschitz)*adjoint_filter(filter(momentum) - raw),
             2*gamma/lipschitz, intermediate_it, intermediate_eps,
-            min_intensity, max_intensity)
+            min_value, max_value)
         fn = TV_decon_problem(image, raw, gamma, filter)
         # Test wrt. the restart scheme:
         if fn_1 < fn:
