@@ -16,7 +16,7 @@ This is a project is written as a project on the side of my studies and are only
 2. Segmentation algorithms
 3. Textures using wavelets
 4. 3D-Implementations of some algorithms
-5. Image inpainting
+5. Image inpainting (maybe)
 6. Markov model techniques (Not variational or PDE based, but interesting nonetheless)
 
 ### Required python packages:
