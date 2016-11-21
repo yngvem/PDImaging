@@ -81,10 +81,9 @@ cdef tv_fista(raw, gamma, it = 100, eps=1e-4,
     c_tv_fista(image, raw, gamma, min_value, max_value, it, eps)
     return image
 
-
 cpdef deconvolve_fista(raw, filter, adjoint_filter, gamma, it=50,
-                       intermediate_it=30, lipschitz=1.3, eps=1e-4,
-                       intermediate_eps=1e-4, min_value=0, max_value=1):
+                       intermediate_it=30, eps=1e-4, intermediate_eps=1e-4,
+                       min_value=0, max_value=1, lipschitz=1.3):
 
     """Performs TV-deconvolution using the ROF model [1] using the FISTA
     method as described in [3] and a restart scheme as described in [4].
@@ -99,16 +98,18 @@ cpdef deconvolve_fista(raw, filter, adjoint_filter, gamma, it=50,
     :param gamma: Regularization constant - noise level
     :param it: Number of FISTA iterations
     :param intermediate_it: Number of FISTA-denoise iterations per iteration
-    :param lipschitz: Maximum bound for the Lipschitz constant of the:
-                      [F'*F]
-                      Operator, where * denotes composition.
-                      This can be found as the sum of all the values in the
-                      point spread function corresponding to F'*F (equals 1
-                      for most blurring operators).
+
     :param eps: Convergence limit for the FISTA iterations
     :param intermediate_eps: Convergence limit for the denoise iterations
     :param min_value: The minimum image value
     :param max_value: The maximum image value
+    :param lipschitz: Maximum bound for the Lipschitz constant of the:
+                  [F'*F]
+                  Operator, where * denotes composition.
+                  This can be found as the sum of all the values in the
+                  point spread function corresponding to F'*F (equals 1
+                  for most blurring operators).
+    :returns: Deconvoluted image
     """
     # Initialize
     cdef np.ndarray[double, ndim=2, mode='c'] image = np.zeros(np.shape(raw))
@@ -137,6 +138,7 @@ cpdef deconvolve_fista(raw, filter, adjoint_filter, gamma, it=50,
             image = np.copy(prev_it)
         # Test convergence
         elif fn_1 - fn < eps*fn:
+            print "Converged after {} iterations".format(i)
             break
         else:
             t_1 = t
