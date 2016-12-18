@@ -28,7 +28,7 @@ __email__ = 'yngve.m.moe@gmail.com'
 import numpy as np
 import scipy.signal as sig
 from skimage.filters import gaussian
-from tv_deconvolve import deconvolve_fista
+from tv_fista import deconvolve_fista
 
 
 def deconvolve_tv(image, psf, noise_level=0.05, min_value=0, max_value=1,
@@ -61,8 +61,11 @@ def deconvolve_tv(image, psf, noise_level=0.05, min_value=0, max_value=1,
 
 def easy_gaussian_denoise(image, std, noise_level=0.05, min_value=0,
                           max_value=1, intermediate_it=30, it=40,
-                          intermediate_eps=1e-3, eps=1e-5):
-    """Performs total variation regularized deconvolution of image with a
+                          intermediate_eps=1e-3, eps=1e-5, lipschitz=None,
+                          message=True):
+    """Warning: Slow! Each iteration performs total variation deblurring.
+
+    Performs total variation regularized deconvolution of image with a
     gaussian blurring kernel that has given standard deviation. This is
     performed using the FISTA method [2] and the framework derived in [3] as
     well as a restarting scheme as described in [4].
@@ -70,22 +73,25 @@ def easy_gaussian_denoise(image, std, noise_level=0.05, min_value=0,
     :param image: Image to deblur.
     :param std: Standard deviation (radius) of the gaussian blurring kernel
     to invert.
-    :param noise_level: Regularization parameter - Almost allways less than 0.
+    :param noise_level: Regularization parameter - Almost always less than 1.
     :param min_value: Minimum pixel value.
     :param max_value: Maximum pixel value.
     :param intermediate_it: Iterations per proximal gradient computation.
     :param it: No. of FISTA iterations.
     :param intermediate_eps: Convergence level of proximal gradient computation.
     :param eps: Convergence level deconvolution iterations.
+    :param lipschitz: Use higher than standard Lipschitz bound for the
+    convolution gradient funcitonal.
+    :param message: Show information during iterations
     :return: Deblurred image
     """
+    lipschitz = 2 if not lipschitz else lipschitz
     filter = lambda x: gaussian(x, std)
     return deconvolve_fista(image, filter, filter, noise_level,
                             it=it, intermediate_it=intermediate_it, eps=eps,
                             intermediate_eps=intermediate_eps,
                             min_value=min_value, max_value=max_value,
-                            lipschitz=find_lipschitz(image,
-                                           lambda x: filter(filter(x))))
+                            lipschitz=lipschitz, message=message)
 
 
 def find_lipschitz(x0, operator):

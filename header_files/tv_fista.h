@@ -59,7 +59,6 @@ void primal_off_projection(double* image, double* raw, double gamma, double min_
 	//The projection off the feasible set for the ROF functional
 	int i;
 
-	//#pragma omp parallel for
 	for (i = 0; i < y*x; i++)
 	{
 		if (image[i] < min_value)

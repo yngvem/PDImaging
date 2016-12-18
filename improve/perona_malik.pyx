@@ -34,7 +34,7 @@ __email__ = "yngve.m.moe@gmail.com"
 import numpy as np
 cimport numpy as np
 
-cdef extern from "../../header_files/perona_malik.h":
+cdef extern from "../header_files/perona_malik.h":
     void ext_perona_malik(double* image, double* raw, double edge_level,
                           double step_length, int method, int max_it,
                           int y, int x)

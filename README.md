@@ -6,10 +6,11 @@ PDE based image processing is an important part of image processing, there are, 
 This is a project is written as a project on the side of my studies and are only a couple of weeks old, and therefore not anywhere near any state of completion. There only functions currently implemented are for improving image quality, denoising using Perona Malik iterations and ROF/TV-L2 denoising as well as TV-L2 regularised deconvolution.
 
 ### Immediate todo list:
-1. Improve setup files to make building with distutils possible
-2. Combine setup files in one file if possible
-3. TVL1 deconvolution.
-4. Improve deconvolution framework.
+1. Restructure the deconvolve cython file - there's reduntant code there
+2. Improve setup files to make building with distutils possible
+3. Combine setup files in one file if possible
+4. TVL1 deconvolution.
+5. Improve deconvolution framework.
 
 ### Long term todo list:
 1. Change C++ code to use templates so image bitrate is conserved

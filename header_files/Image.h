@@ -144,7 +144,6 @@ double sum_squares(double* image, int y, int x)
 	int i;
 	double norm = 0;
 
-#pragma omp parallel for
 	for (i = 0; i < x*y; i++)
 	{
 		norm += image[i] * image[i];
@@ -158,7 +157,6 @@ double sum_squared_error(double* image, double* raw, int y, int x)
 	int i;
 	double norm = 0;
 
-#pragma omp parallel for
 	for (i = 0; i < y; i++)
 	{
 		norm += (image[i] - raw[i]) * (image[i] - raw[i]);
