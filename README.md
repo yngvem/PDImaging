@@ -31,7 +31,3 @@ I reccomend using an installation of the great Anaconda Python bundle, as that w
 
 ## About me
 I am a graduate student on my first year of a Masters degree in image processing and computational biology at the Norwegian University of Life Sciences. I have completed a Bachelor's degree within applied mathematics and physics at the same university, with one year spent at the University of Manchester, where I wrote my undergraduate project. My project thesis is meant as an introduction to the mathematical background of tomographic reconstruction techniques, as well as an implementation and comparison of different algorithms. The MATLAB toolkit I made, as well as the thesis can be found at https://github.com/yngvem/CT_reconstruction 
-
-## Contact:
-Feel free to contact me, either about this project, or for general questions about tomography at yngve.m.moe@gmail.com.
-
