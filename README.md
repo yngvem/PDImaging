@@ -10,7 +10,8 @@ This is a project is written as a project on the side of my studies and are only
 2. Improve setup files to make building with distutils possible
 3. Combine setup files in one file if possible
 4. TVL1 deconvolution.
-5. Improve deconvolution framework.
+5. Create TGV denoising and deconvolution framework
+6. Improve deconvolution framework.
 
 ### Long term todo list:
 1. Change C++ code to use templates so image bitrate is conserved
