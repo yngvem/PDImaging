@@ -19,7 +19,6 @@ This is a project is written as a project on the side of my studies and are only
 3. Textures using wavelets
 4. 3D-Implementations of some algorithms
 5. Image inpainting (maybe)
-6. Markov model techniques (Not variational or PDE based, but interesting nonetheless)
 
 ### Required python packages:
 I reccomend using an installation of the great Anaconda Python bundle, as that will have all required Python packages installed. If not, these are the packages this toolbox requires:
