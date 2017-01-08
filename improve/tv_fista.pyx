@@ -59,7 +59,8 @@ cpdef tv_fista(raw, gamma, it = 80, eps=1e-5,
     :max_intensity: Maximum image value
     """
     image = np.zeros(np.shape(raw))
-    c_tv_fista(image, raw, gamma, min_intensity, max_intensity, it, eps)
+    c_tv_fista(image, np.ascontiguousarray(raw), gamma, min_intensity,
+               max_intensity, it, eps)
     return image
 
 
@@ -82,7 +83,10 @@ cdef TV_decon_problem(decon_im, raw, gamma, filt):
     """
     image = filt(decon_im)
     y, x = np.shape(image)
-    return c_TV_deconvolve_problem(image, decon_im, raw, gamma, y, x)
+    return c_TV_deconvolve_problem(np.ascontiguousarray(image),
+                                   np.ascontiguousarray(decon_im),
+                                   np.ascontiguousarray(raw),
+                                   gamma, y, x)
 
 
 cpdef deconvolve_fista(raw, filt, adjoint_filt, gamma, it=50,
@@ -168,7 +172,7 @@ cpdef deconvolve_ista(raw, filt, adjoint_filt, gamma, it=50,
 
     """Performs TV-deconvolution using the ROF model [1] using the ISTA
     method as described in [3] and a restart scheme as described in [4].
-    :param raw: Image do deconvolve
+    :param raw: Image to deconvolve
     :param filt: Function, takes image as input and returns the
     image transformed by the convolution operator we want to invert
     remove, denoted F

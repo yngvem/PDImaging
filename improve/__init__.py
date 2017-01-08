@@ -10,6 +10,7 @@ __email__ = 'yngve.m.moe@gmail.com'
 from easy_deconvolve import *
 from perona_malik import *
 from tv_fista import *
+from unsharp import *
 
 tv_fista_doc = """
 Functions to perform denoising and deconvolutionusing the framework laid by

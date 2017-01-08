@@ -65,7 +65,8 @@ cpdef perona_malik(raw,  method='lorenz', edge_level = 'auto',
     if edge_level == 'auto':
         edge_level = -1
 
-    c_perona_malik(image, raw, edge_level, step_length, method, it, y, x)
+    c_perona_malik(image, np.ascontiguousarray(raw), edge_level, step_length,
+                   method, it, y, x)
     return image
 
 
@@ -85,12 +86,13 @@ cpdef fast_perona_malik(raw, method='lorenz',
     y, x = np.shape(raw)
     image = np.zeros(np.shape(raw))
 
-    if method == 'tukey' or method == 1:
+    if str(method).lower() == 'tukey' or method == 1:
         method = 2
     else:
         method = 1
     if edge_level == 'auto':
         edge_level = -1
 
-    c_fast_perona_malik(image, raw, edge_level, step_length, method, it, y, x)
+    c_fast_perona_malik(image, np.ascontiguousarray(raw), edge_level,
+                        step_length, method, it, y, x)
     return image

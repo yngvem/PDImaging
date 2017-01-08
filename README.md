@@ -6,19 +6,17 @@ PDE based image processing is an important part of image processing, there are, 
 This is a project is written as a project on the side of my studies and are only a couple of weeks old, and therefore not anywhere near any state of completion. There only functions currently implemented are for improving image quality, denoising using Perona Malik iterations and ROF/TV-L2 denoising as well as TV-L2 regularised deconvolution.
 
 ### Immediate todo list:
-1. Restructure the deconvolve cython file - there's reduntant code there
-2. Improve setup files to make building with distutils possible
-3. Combine setup files in one file if possible
-4. TVL1 deconvolution.
-5. Improve deconvolution framework.
+1. Improve setup files to make building with distutils possible.
+2. TVL1 deconvolution.
+3. Improve deconvolution framework.
+4. Create framework for colour images.
 
 ### Long term todo list:
-1. Change C++ code to use templates so image bitrate is conserved
-2. Segmentation algorithms
-3. Textures using wavelets
-4. 3D-Implementations of some algorithms
-5. Image inpainting (maybe)
-6. Markov model techniques (Not variational or PDE based, but interesting nonetheless)
+1. Segmentation algorithms
+2. Textures using wavelets
+3. 3D-Implementations of some algorithms
+4. Image inpainting (maybe)
+5. Markov model techniques (Not variational or PDE based, but interesting nonetheless)
 
 ### Required python packages:
 I reccomend using an installation of the great Anaconda Python bundle, as that will have all required Python packages installed. If not, these are the packages this toolbox requires:
