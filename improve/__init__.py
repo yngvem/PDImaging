@@ -10,7 +10,6 @@ __email__ = 'yngve.m.moe@gmail.com'
 from easy_deconvolve import *
 from perona_malik import *
 from tv_fista import *
-from unsharp import *
 
 tv_fista_doc = """
 Functions to perform denoising and deconvolutionusing the framework laid by
@@ -62,6 +61,8 @@ This implementation uses C++ code with speedups from OpenMP parallel loops.
 """
 
 easy_deconvolve_doc = """
+WARNING: Currently painsakingly slow!
+
 Functions to perform deconvolution using the framework laid by Rudin-Osher and
 Fatemi (ROF) in [1]. The minimization is performed using the FISTA method
 derived by Amir Beck and Marc Teboulle in [2] as described in their paper for
