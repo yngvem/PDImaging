@@ -8,15 +8,16 @@ This is a project is written as a project on the side of my studies and are only
 ### Immediate todo list:
 1. Improve setup files to make building with distutils possible.
 2. TVL1 deconvolution.
-3. Improve deconvolution framework.
-4. Create framework for colour images.
+3. Create Guided Poisson solvers.
+4. Create TGV denoising and deconvolution framework.
+5. Improve deconvolution framework.
 
 ### Long term todo list:
-1. Segmentation algorithms
-2. Textures using wavelets
-3. 3D-Implementations of some algorithms
-4. Image inpainting (maybe)
-5. Markov model techniques (Not variational or PDE based, but interesting nonetheless)
+1. Change C++ code to use templates so image bitrate is conserved
+2. Segmentation algorithms
+3. Textures using wavelets
+4. 3D-Implementations of some algorithms
+5. Image inpainting (maybe)
 
 ### Required python packages:
 I reccomend using an installation of the great Anaconda Python bundle, as that will have all required Python packages installed. If not, these are the packages this toolbox requires:
@@ -29,7 +30,3 @@ I reccomend using an installation of the great Anaconda Python bundle, as that w
 
 ## About me
 I am a graduate student on my first year of a Masters degree in image processing and computational biology at the Norwegian University of Life Sciences. I have completed a Bachelor's degree within applied mathematics and physics at the same university, with one year spent at the University of Manchester, where I wrote my undergraduate project. My project thesis is meant as an introduction to the mathematical background of tomographic reconstruction techniques, as well as an implementation and comparison of different algorithms. The MATLAB toolkit I made, as well as the thesis can be found at https://github.com/yngvem/CT_reconstruction 
-
-## Contact:
-Feel free to contact me, either about this project, or for general questions about tomography at yngve.m.moe@gmail.com.
-
