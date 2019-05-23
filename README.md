@@ -1,5 +1,5 @@
 # PDImaging
-## This was a fun side project I had last year, however, it might have been somewhat too ambitious. I might come back to this project later once I am finished with my masters degree.
+**This was a fun side project I had last year, however, it might have been somewhat too ambitious. I might come back to this project later once I am finished with my masters degree.**
 
 **I am now finished with my masters degree, but I have other project's I'm working on and a job. This was a fun project, but don't expect updates in the immediate future.**
 
