@@ -1,6 +1,10 @@
 # PDImaging
 ## This was a fun side project I had last year, however, it might have been somewhat too ambitious. I might come back to this project later once I am finished with my masters degree.
 
+## I am now finished with my masters degree, but I have other project's I'm working on and a job. This was a fun project, but don't expect updates in the immediate future.
+
+If I ever pick this up, I'll have to rewrite it for Python 3.X.
+
 ## A Python toolkit for variational and PDE based image processing
 This toolbox is an attempt to fill that hole and uses a combination of Cython and C++ to speed things up. One big advantage of this toolbox is that all functions have references to where the respective algorithms were first published, as well as what source I've used for the algorithm to improve the ease at which scientists use this toolbox.
 
@@ -15,11 +19,10 @@ This project is written on the side of my studies and are only, thus updates wil
 5. Improve deconvolution framework.
 
 ### Long term todo list:
-1. Change C++ code to use templates so image bitrate is conserved
-2. Segmentation algorithms
-3. 3D-Implementations of some algorithms
-4. Color implementations of algorithms
-5. Image inpainting (maybe)
+1. Segmentation algorithms
+2. 3D-Implementations of some algorithms
+3. Color implementations of algorithms
+4. Image inpainting (maybe)
 
 ### Required python packages:
 I reccomend using an installation of the great Anaconda Python bundle, as that will have all required Python packages installed. If not, these are the packages this toolbox requires:
